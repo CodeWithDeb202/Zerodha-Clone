@@ -1,3 +1,3 @@
 # Zerodha Clone
 
-This is my project small part while I am working on this project.
+This is my project small part Now I am working on this project.
