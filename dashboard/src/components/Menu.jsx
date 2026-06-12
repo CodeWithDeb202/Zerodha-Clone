@@ -1,7 +1,38 @@
-function Menu() {
+function Menu(){
     return(
-        <h1>Menu</h1>
+        <div className="menu-container">
+            <img style={{width:"50px"}} src="\public\logo.png" alt="Logo" />
+            <div className="menus">
+                <ul>
+                    <li>
+                        <p>Dashboard</p>
+                    </li>
+                    <li>
+                        <p>Orders</p>
+                    </li>
+                    <li>
+                        <p>Holdings</p>
+                    </li>
+                    <li>
+                        <p>Positions</p>
+                    </li>
+                    <li>
+                        <p>Funds</p>
+                    </li>
+                    <li>
+                        <p>App</p>
+                    </li>
+                </ul>
+                <hr />
+
+                <div className="profile">
+                    <div className="avatar">ZU</div>
+                    <p className="username">USERID</p>
+                </div>
+
+            </div>
+        </div>
     )
-}
+};
 
 export default Menu;
