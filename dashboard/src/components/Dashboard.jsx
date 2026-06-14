@@ -12,7 +12,7 @@ function Dashboard(){
     return(
         <div className="dashboard-container">
             <Watchlist />
-            <div className="contents">
+            <div className="content">
                 <Routes>
                     <Route exact path='/' element={<Summary />} />
                     <Route path='/orders' element={<Orders />} />
