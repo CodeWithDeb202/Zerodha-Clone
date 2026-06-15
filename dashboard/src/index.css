@@ -756,6 +756,7 @@ hr {
 .action {
   background-color: #fff;
   border: 0.7px solid #9b9b9b;
+  margin: 0;
 }
 
 .icon {
