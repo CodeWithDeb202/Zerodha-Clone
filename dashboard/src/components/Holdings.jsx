@@ -12,6 +12,8 @@ function Holdings() {
         axios.get('http://localhost:5000/allHoldings')
             .then(res => {
                 setAllHoldings(res.data);
+            }).catch(err => {
+                console.log('Error fetching holdings:', err);
             });
     }, []);
 

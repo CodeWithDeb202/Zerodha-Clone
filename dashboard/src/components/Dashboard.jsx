@@ -7,11 +7,16 @@ import Positions from "./Positions";
 import Funds from "./Funds";
 import App from "./App";
 
+import {GeneralContextProvider} from "./GeneralContext";
+
 
 function Dashboard(){
     return(
         <div className="dashboard-container">
-            <Watchlist />
+            <GeneralContextProvider>
+                <Watchlist />
+            </GeneralContextProvider>
+            
             <div className="content">
                 <Routes>
                     <Route exact path='/' element={<Summary />} />

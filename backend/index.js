@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config({ quiet: true });
 
 const express = require("express");
 const mongoose = require("mongoose");
@@ -15,6 +15,7 @@ app.use(bodyParser.json());
 
 const HoldingsModel = require("./model/HoldingsModel");
 const PositionsModel = require("./model/PositionsModel");
+const OrdersModel = require("./model/OrdersModel");
 
 
 // app.get('/addPositions', (req, res) => {
@@ -71,9 +72,28 @@ app.get("/allPositions", async(req, res) => {
 });
 
 
+app.post("/newOrder", async (req, res) => {
+    const newOrderData = req.body;
+    const newOrder = new OrdersModel({
+        name: newOrderData.name,
+        qty: newOrderData.qty,
+        price: newOrderData.price,
+        mode: newOrderData.mode,
+    });
+    await newOrder.save();
+    res.status(201).json({
+        message: "Order added successfully",
+        order: newOrder,
+    });
+});
 
-app.listen(PORT, () => {
+
+
+mongoose.connect(MONGO_URL).then(() => {
+  console.log("Connected MongoDB Successfully");
+  app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
-    mongoose.connect(MONGO_URL);
-    console.log('Connected MongoDB Successfully');
+  });
+}).catch((err) => {
+  console.log("MongoDB connection error:", err);
 });
