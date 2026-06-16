@@ -12,7 +12,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://localhost:5173"],
+    origin: ["http://localhost:3000", "http://localhost:3001", "http://localhost:5173", "http://localhost:5174"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -82,6 +82,7 @@ app.get("/allPositions", async(req, res) => {
 
 
 app.post("/newOrder", async (req, res) => {
+  try {
     const newOrderData = req.body;
     const newOrder = new OrdersModel({
         name: newOrderData.name,
@@ -94,7 +95,19 @@ app.post("/newOrder", async (req, res) => {
         message: "Order added successfully",
         order: newOrder,
     });
+  } catch (err) {
+    res.status(500).json({ message: "Error saving order", error: err.message });
+  }
 });
+
+app.get("/allOrders", async (req, res) =>{
+  try {
+    const allOrders = await OrdersModel.find({});
+    res.json(allOrders);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching orders", error: err.message });
+  }
+})
 
 
 mongoose.connect(MONGO_URL, { serverSelectionTimeoutMS: 10000 }).then(() => {
