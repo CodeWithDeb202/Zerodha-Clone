@@ -10,7 +10,7 @@ function Orders() {
             .then(res => {
                 setAllOrders(res.data);
             }).catch(err => {
-                console.log('Error fetching holdings:', err);
+                console.log('Error fetching orders:', err);
             });
     }, []);
     return (
@@ -42,7 +42,11 @@ function Orders() {
                                             <td>{order.name}</td>
                                             <td>{order.qty}</td>
                                             <td>{Number(order.price).toFixed(2)}</td>
-                                            <td>{order.mode}</td>
+                                            <td>
+                                                <span className={`order-mode ${order.mode?.toUpperCase() === 'BUY' ? 'buy-mode' : 'sell-mode'}`}>
+                                                    {order.mode?.toUpperCase()}
+                                                </span>
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>

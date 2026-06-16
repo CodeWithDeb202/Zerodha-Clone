@@ -1,10 +1,15 @@
+import { useAuth } from "./AuthContext";
+
 function Summary() {
+    const { user } = useAuth();
+    const username = user?.username || "User";
+
     return (
         <>
 
 
             <div className="username">
-                <h6>Hi, User!</h6>
+                <h6>Hi, {username}!</h6>
                 <hr className="divider" />
             </div>
 

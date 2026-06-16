@@ -1,0 +1,130 @@
+.auth-page {
+  min-height: 72vh;
+  background: #f6f8fb;
+  padding: 56px 20px;
+}
+
+.auth-shell {
+  width: min(1040px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 48px;
+  align-items: center;
+}
+
+.auth-copy {
+  color: #1f2937;
+}
+
+.auth-kicker {
+  color: #387ed1;
+  font-weight: 700;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+.auth-copy h1 {
+  max-width: 560px;
+  margin: 0 0 16px;
+  font-size: 44px;
+  line-height: 1.12;
+  font-weight: 700;
+}
+
+.auth-copy p {
+  max-width: 540px;
+  color: #536176;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.auth-form {
+  background: #fff;
+  border: 1px solid #e3e8ef;
+  border-radius: 8px;
+  box-shadow: 0 16px 42px rgba(15, 23, 42, 0.08);
+  padding: 32px;
+}
+
+.auth-form h2 {
+  margin: 0;
+  color: #1f2937;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.auth-subtitle {
+  margin: 8px 0 24px;
+  color: #687588;
+}
+
+.auth-form label {
+  display: block;
+  margin: 16px 0 8px;
+  color: #2d3748;
+  font-weight: 600;
+}
+
+.auth-form input {
+  width: 100%;
+  height: 46px;
+  border: 1px solid #cfd8e3;
+  border-radius: 6px;
+  padding: 0 14px;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.auth-form input:focus {
+  border-color: #387ed1;
+  box-shadow: 0 0 0 3px rgba(56, 126, 209, 0.14);
+}
+
+.auth-submit {
+  width: 100%;
+  height: 46px;
+  margin-top: 24px;
+  border: 0;
+  border-radius: 6px;
+  background: #387ed1;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.16s ease;
+}
+
+.auth-submit:hover {
+  background: #2f6dbb;
+}
+
+.auth-submit:disabled {
+  background: #8bb7e7;
+  cursor: not-allowed;
+}
+
+.auth-switch {
+  margin: 20px 0 0;
+  color: #687588;
+  text-align: center;
+}
+
+.auth-switch a {
+  color: #387ed1;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+@media (max-width: 850px) {
+  .auth-shell {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .auth-copy h1 {
+    font-size: 34px;
+  }
+}

@@ -8,17 +8,17 @@ import axios from 'axios';
 
 
 
-function BuyActionWindow({uid}) {
+function BuyActionWindow({uid, mode = 'BUY', initialPrice = 0}) {
     const [stockQuantity, setStockQuantity] = useState(1);
-    const [stockPrice, setStockPrice] = useState(0.0);
+    const [stockPrice, setStockPrice] = useState(Number(initialPrice) || 0.0);
 
-    const handleBuyClick = async () => {
+    const handleOrderClick = async () => {
         try {
             await axios.post('http://localhost:5000/newOrder', {
                 name: uid,
                 qty: stockQuantity,
                 price: stockPrice,
-                mode: 'BUY',
+                mode,
             });
 
             closeBuyWindow();
@@ -50,7 +50,13 @@ function BuyActionWindow({uid}) {
             <div className="buttons">
                 <span>Margin required ₹140.65</span>
                 <div>
-                    <Link to={''} className="btn btn-blue" onClick={handleBuyClick}>Buy</Link>
+                    <Link
+                        to={''}
+                        className={mode === 'BUY' ? 'btn btn-blue' : 'btn btn-sell'}
+                        onClick={handleOrderClick}
+                    >
+                        {mode === 'BUY' ? 'Buy' : 'Sell'}
+                    </Link>
                     <Link to={''} className="btn btn-grey" onClick={handleCancelClick}>Cancel</Link>
                 </div>
             </div>

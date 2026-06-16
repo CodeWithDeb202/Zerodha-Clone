@@ -1,10 +1,14 @@
 import { useState } from "react";
 
 import {Link} from "react-router-dom";
+import { useAuth } from "./AuthContext";
 
 function Menu(){
+    const { user, logout } = useAuth();
     const [selectedMenu, setSelectedMenu] = useState(0);
     const [isProfileDropDownOpen, setIsProfileDropDownOpen] = useState(false);
+    const username = user?.username || "User";
+    const avatarText = username.slice(0, 2).toUpperCase();
 
 
     const handleMenuClick = (index) =>{
@@ -57,9 +61,16 @@ function Menu(){
                 <hr />
 
                 <div className="profile" onClick={handleProfileClick}>
-                    <div className="avatar">ZU</div>
-                    <p className="username">USERID</p>
+                    <div className="avatar">{avatarText}</div>
+                    <p className="username">@{username}</p>
                 </div>
+
+                {isProfileDropDownOpen && (
+                    <div className="profile-dropdown">
+                        <p>{username}</p>
+                        <button type="button" onClick={logout}>Log out</button>
+                    </div>
+                )}
 
             </div>
         </div>

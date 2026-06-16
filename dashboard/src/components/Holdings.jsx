@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 // import { holdings } from '../data/data';
 
@@ -7,15 +8,40 @@ import axios from 'axios';
 function Holdings() {
 
     const [allHoldings, setAllHoldings] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get('http://localhost:5000/allHoldings')
             .then(res => {
-                setAllHoldings(res.data);
+                const holdingsOnly = res.data.filter((stock) => {
+                    return stock.avg !== undefined && stock.net !== undefined && stock.day !== undefined && !stock.mode;
+                });
+
+                setAllHoldings(holdingsOnly);
             }).catch(err => {
                 console.log('Error fetching holdings:', err);
             });
     }, []);
+
+    const handleSellClick = async (stock) => {
+        try {
+            await axios.post('http://localhost:5000/newOrder', {
+                name: stock.name,
+                qty: stock.qty,
+                price: stock.price,
+                mode: 'SELL',
+            });
+
+            await axios.delete(`http://localhost:5000/holding/${stock._id}`);
+            setAllHoldings((currentHoldings) => {
+                return currentHoldings.filter((holding) => holding._id !== stock._id);
+            });
+
+            navigate('/orders');
+        } catch (err) {
+            console.log('Error placing sell order:', err);
+        }
+    };
 
     return (
         <>
@@ -31,6 +57,7 @@ function Holdings() {
                         <th>P&L</th>
                         <th>Net chg.</th>
                         <th>Day chg.</th>
+                        <th>Action</th>
                     </tr>
                     {allHoldings.map((stock, index) => {
 
@@ -51,6 +78,15 @@ function Holdings() {
                                 </td>
                                 <td className={profClass}>{stock.net}</td>
                                 <td className={dayClass}>{stock.day}</td>
+                                <td>
+                                    <button
+                                        type="button"
+                                        className="sell-order-btn"
+                                        onClick={() => handleSellClick(stock)}
+                                    >
+                                        Sell
+                                    </button>
+                                </td>
                             </tr>
                         );
                     })}
