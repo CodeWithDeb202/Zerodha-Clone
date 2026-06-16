@@ -1,7 +1,7 @@
-function SignUP() {
-    return (
-        <h1>Sign up</h1>
-    );
+function Signup(){
+    return(
+        <h1>Sign Up</h1>
+    )
 }
 
-export default SignUP;
+export default Signup;

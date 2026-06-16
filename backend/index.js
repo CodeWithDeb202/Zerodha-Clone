@@ -10,8 +10,17 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 
 
-app.use(cors());
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "http://localhost:5173"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
+
+
 app.use(bodyParser.json());
+app.use(express.json());
 
 const HoldingsModel = require("./model/HoldingsModel");
 const PositionsModel = require("./model/PositionsModel");
@@ -88,12 +97,12 @@ app.post("/newOrder", async (req, res) => {
 });
 
 
-
-mongoose.connect(MONGO_URL).then(() => {
+mongoose.connect(MONGO_URL, { serverSelectionTimeoutMS: 10000 }).then(() => {
   console.log("Connected MongoDB Successfully");
   app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
   });
 }).catch((err) => {
   console.log("MongoDB connection error:", err);
+  process.exit(1);
 });
