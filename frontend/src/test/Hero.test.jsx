@@ -9,6 +9,8 @@ afterEach(() => {
     cleanup();
 });
 
+
+//This is the only learning basis test case code
 describe('Hero component', () => {
     test('renders hero image', () => {
         render(
