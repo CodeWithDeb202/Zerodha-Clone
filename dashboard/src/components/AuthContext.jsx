@@ -1,8 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
-
-const API_URL = "http://localhost:5000";
-const LANDING_URL = import.meta.env.VITE_LANDING_URL || "http://localhost:5173";
+import { API_URL, LANDING_URL } from "../config";
 
 const AuthContext = createContext({
   user: null,
@@ -31,7 +29,8 @@ export const AuthProvider = ({ children }) => {
 
         window.location.href = `${LANDING_URL}/login`;
       } catch (err) {
-        window.location.href = `${LANDING_URL}/login`,{err};
+        console.error("Session verification failed:", err);
+        window.location.href = `${LANDING_URL}/login`;
       } finally {
         setIsCheckingAuth(false);
       }

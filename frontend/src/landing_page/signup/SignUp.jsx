@@ -4,9 +4,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./SignupPage.css";
-
-const API_URL = "http://localhost:5000";
-const DASHBOARD_URL = import.meta.env.VITE_DASHBOARD_URL || "http://localhost:5174";
+import { API_URL, DASHBOARD_URL } from "../../config";
 
 function Signup() {
   const [formData, setFormData] = useState({

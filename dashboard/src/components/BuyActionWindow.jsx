@@ -4,6 +4,7 @@ import GeneralContext from './GeneralContext';
 import './BuyActionWindow.css';
 
 import axios from 'axios';
+import { API_URL } from '../config';
 
 
 
@@ -14,7 +15,7 @@ function BuyActionWindow({uid, mode = 'BUY', initialPrice = 0}) {
 
     const handleOrderClick = async () => {
         try {
-            await axios.post('http://localhost:5000/newOrder', {
+            await axios.post(`${API_URL}/newOrder`, {
                 name: uid,
                 qty: stockQuantity,
                 price: stockPrice,

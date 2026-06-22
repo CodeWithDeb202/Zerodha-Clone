@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Verticalgraph } from './Verticalgraph';
+import { API_URL } from '../config';
 
 
 function Holdings() {
@@ -10,7 +11,7 @@ function Holdings() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get('http://localhost:5000/allHoldings')
+        axios.get(`${API_URL}/allHoldings`)
             .then(res => {
                 const holdingsOnly = res.data.filter((stock) => {
                     return stock.avg !== undefined && stock.net !== undefined && stock.day !== undefined && !stock.mode;
@@ -24,14 +25,14 @@ function Holdings() {
 
     const handleSellClick = async (stock) => {
         try {
-            await axios.post('http://localhost:5000/newOrder', {
+            await axios.post(`${API_URL}/newOrder`, {
                 name: stock.name,
                 qty: stock.qty,
                 price: stock.price,
                 mode: 'SELL',
             });
 
-            await axios.delete(`http://localhost:5000/holding/${stock._id}`);
+            await axios.delete(`${API_URL}/holding/${stock._id}`);
             setAllHoldings((currentHoldings) => {
                 return currentHoldings.filter((holding) => holding._id !== stock._id);
             });

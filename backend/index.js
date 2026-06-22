@@ -5,17 +5,25 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const path = require("path");
 const authRoutes = require("./Routes/AuthRoutes");
 
 const MONGO_URL = process.env.MONGO_URL;
 const PORT = process.env.PORT || 5000;
 const app = express();
+const allowedOrigins = (process.env.CLIENT_ORIGINS || "")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
 
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || /^http:\/\/(localhost|127\.0\.0\.1):\d+$/.test(origin)) {
+      const isLocalOrigin = /^http:\/\/(localhost|127\.0\.0\.1):\d+$/.test(origin || "");
+      const isRenderOrigin = /^https:\/\/[a-z0-9-]+\.onrender\.com$/i.test(origin || "");
+
+      if (!origin || isLocalOrigin || isRenderOrigin || allowedOrigins.includes(origin)) {
         return callback(null, true);
       }
 
@@ -30,6 +38,10 @@ app.use(
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(cookieParser());
+
+app.get("/health", (req, res) => {
+  res.json({ status: "ok" });
+});
 
 const HoldingsModel = require("./model/HoldingsModel");
 const PositionsModel = require("./model/PositionsModel");
@@ -178,6 +190,29 @@ app.get("/allOrders", async (req, res) =>{
     res.status(500).json({ message: "Error fetching orders", error: err.message });
   }
 })
+
+if (process.env.NODE_ENV === "production") {
+  const frontendDist = path.join(__dirname, "..", "frontend", "dist");
+  const dashboardDist = path.join(__dirname, "..", "dashboard", "dist");
+
+  app.use("/dashboard", express.static(dashboardDist));
+  app.use("/dashboard", (req, res, next) => {
+    if (req.method === "GET" && req.accepts("html")) {
+      return res.sendFile(path.join(dashboardDist, "index.html"));
+    }
+
+    return next();
+  });
+
+  app.use(express.static(frontendDist));
+  app.use((req, res, next) => {
+    if (req.method === "GET" && req.accepts("html")) {
+      return res.sendFile(path.join(frontendDist, "index.html"));
+    }
+
+    return next();
+  });
+}
 
 
 mongoose.connect(MONGO_URL, { serverSelectionTimeoutMS: 10000 }).then(() => {

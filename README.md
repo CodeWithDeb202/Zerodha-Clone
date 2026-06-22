@@ -328,6 +328,37 @@ This project helped me understand how separate frontend applications and a backe
 - Configure secure production cookies and deployment
 - Add loading skeletons and better API error states
 
+## Deploying on Render
+
+The production deployment uses one Render web service:
+
+- The Express backend serves the API.
+- The built frontend is served at `/`.
+- The built dashboard is served at `/dashboard`.
+
+Use these Render service settings:
+
+```text
+Root Directory: leave empty
+Build Command: npm install --include=dev && npm run build
+Start Command: npm start
+Health Check Path: /health
+```
+
+Add these environment variables:
+
+```env
+NODE_ENV=production
+MONGO_URL=your_mongodb_connection_string
+TOKEN_KEY=your_long_random_secret
+```
+
+Do not use `npm run dev` as the Render start command. That command is only for local development and attempts to run three separate development servers.
+
+The repository also includes `render.yaml`, which can create the same configuration through a Render Blueprint.
+
+If MongoDB Atlas rejects the deployed server, allow Render's outbound connection in Atlas Network Access. For a learning project, `0.0.0.0/0` can be used temporarily with strong database credentials; a restricted allowlist is safer.
+
 ## Author
 
 **Debabrata Andia**
