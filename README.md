@@ -214,6 +214,26 @@ VITE_LANDING_URL=http://localhost:5173
 
 Keep all three services running while using the complete application.
 
+### Run all services with one command
+
+After installing the dependencies, run this command from the project root:
+
+```bash
+npm run dev
+```
+
+It starts the backend, frontend, and dashboard together with labeled terminal output.
+
+To install dependencies for the root and all three applications at once, run:
+
+```bash
+npm run install:all
+```
+
+Press `Ctrl + C` to stop all services.
+
+If port `5000`, `5173`, or `5174` is already in use, stop the existing server before running the combined command.
+
 ## Available Scripts
 
 ### Frontend
