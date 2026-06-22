@@ -1,8 +1,7 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
-// import { holdings } from '../data/data';
+import { Verticalgraph } from './Verticalgraph';
 
 
 function Holdings() {
@@ -41,6 +40,19 @@ function Holdings() {
         } catch (err) {
             console.log('Error placing sell order:', err);
         }
+    };
+
+    const labels = allHoldings.map((subArray) => subArray["name"]);
+
+    const data = {
+        labels,
+        datasets: [
+            {
+                label: 'Stock Price',
+                data: allHoldings.map((stock) => stock.price ),
+                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+            },
+        ],
     };
 
     return (
@@ -109,6 +121,7 @@ function Holdings() {
                     <p>P&L</p>
                 </div>
             </div>
+            <Verticalgraph data={data} />
         </>
     )
 };

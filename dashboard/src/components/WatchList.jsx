@@ -1,21 +1,50 @@
 import { useContext, useState } from 'react';
 
 import { Tooltip, Grow } from '@mui/material';
-import {watchlist} from '../data/data';
+import { watchlist } from '../data/data';
 import GeneralContext from './GeneralContext';
 
-import {BarChartOutlined, KeyboardArrowDown, KeyboardArrowUp, MoreHoriz} from '@mui/icons-material';
+import { BarChartOutlined, KeyboardArrowDown, KeyboardArrowUp, MoreHoriz } from '@mui/icons-material';
+import { DoughnoutChart } from './DoughnoutChart';
+
+const labels = watchlist.map((subArray) => subArray["name"]);
 
 function Watchlist() {
+    const data = {
+        labels,
+        datasets: [
+            {
+                label: 'Price',
+                data: watchlist.map((stock) => stock.price),
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.5)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                ],
+                borderWidth: 1,
+            },
+        ],
+    };
     return (
         <div className="watchlist-container">
             <div className="search-container">
-                <input 
+                <input
                     type="text"
                     name="search"
                     id="search"
                     placeholder="Search eg:infy, bse, nifty fut weekly, gold mcx"
-                    className="search" 
+                    className="search"
                 />
                 <span className="counts">{watchlist.length} / 50</span>
             </div>
@@ -23,15 +52,17 @@ function Watchlist() {
             <ul className="list">
                 {watchlist.map((stock, index) => {
                     return <WatchListItem stock={stock} key={index} />;
-                })} 
+                })}
             </ul>
+
+            <DoughnoutChart data={data} />
         </div>
     )
 };
 
 export default Watchlist;
 
-const WatchListItem = ({stock}) => {
+const WatchListItem = ({ stock }) => {
     const [showWatchListAction, setShowWatchListAction] = useState(false);
 
     const handleMouseEnter = () => {
@@ -48,7 +79,7 @@ const WatchListItem = ({stock}) => {
                 <p className={stock.isDown ? 'down' : 'up'}>{stock.name}</p>
                 <div className="item-info">
                     <span className="percent">{stock.percent}</span>
-                    {stock.isDown ? <KeyboardArrowDown className='down'/> : <KeyboardArrowUp className='up' />}
+                    {stock.isDown ? <KeyboardArrowDown className='down' /> : <KeyboardArrowUp className='up' />}
                     <span className='price'>{stock.price}</span>
                 </div>
             </div>
@@ -57,7 +88,7 @@ const WatchListItem = ({stock}) => {
     );
 };
 
-const WatchListAction = ({uid, price}) => {
+const WatchListAction = ({ uid, price }) => {
     const { openBuyWindow } = useContext(GeneralContext);
 
     const handleBuyClick = () => {
@@ -68,7 +99,7 @@ const WatchListAction = ({uid, price}) => {
         openBuyWindow(uid, 'SELL', price);
     };
 
-    return(
+    return (
         <span className='actions'>
             <span>
                 <Tooltip title="Buy (B)" placement="top" TransitionComponent={Grow} arrow>
