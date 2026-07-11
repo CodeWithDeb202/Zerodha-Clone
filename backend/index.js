@@ -5,25 +5,18 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-const path = require("path");
 const authRoutes = require("./Routes/AuthRoutes");
 
 const MONGO_URL = process.env.MONGO_URL;
 const PORT = process.env.PORT || 5000;
 const app = express();
-const allowedOrigins = (process.env.CLIENT_ORIGINS || "")
-  .split(",")
-  .map((origin) => origin.trim())
-  .filter(Boolean);
-
 
 app.use(
   cors({
     origin: (origin, callback) => {
       const isLocalOrigin = /^http:\/\/(localhost|127\.0\.0\.1):\d+$/.test(origin || "");
-      const isRenderOrigin = /^https:\/\/[a-z0-9-]+\.onrender\.com$/i.test(origin || "");
 
-      if (!origin || isLocalOrigin || isRenderOrigin || allowedOrigins.includes(origin)) {
+      if (!origin || isLocalOrigin) {
         return callback(null, true);
       }
 
@@ -191,31 +184,17 @@ app.get("/allOrders", async (req, res) =>{
   }
 })
 
-if (process.env.NODE_ENV === "production") {
-  const frontendDist = path.join(__dirname, "..", "frontend", "dist");
-  const dashboardDist = path.join(__dirname, "..", "dashboard", "dist");
-
-  app.use("/dashboard", express.static(dashboardDist));
-  app.use("/dashboard", (req, res, next) => {
-    if (req.method === "GET" && req.accepts("html")) {
-      return res.sendFile(path.join(dashboardDist, "index.html"));
-    }
-
-    return next();
-  });
-
-  app.use(express.static(frontendDist));
-  app.use((req, res, next) => {
-    if (req.method === "GET" && req.accepts("html")) {
-      return res.sendFile(path.join(frontendDist, "index.html"));
-    }
-
-    return next();
-  });
+if (!MONGO_URL) {
+  console.error("MONGO_URL is missing. Add it to backend/.env before starting the server.");
+  process.exit(1);
 }
 
+console.log("Connecting to MongoDB...");
 
-mongoose.connect(MONGO_URL, { serverSelectionTimeoutMS: 10000 }).then(() => {
+mongoose.connect(MONGO_URL, {
+  serverSelectionTimeoutMS: 10000,
+  connectTimeoutMS: 10000,
+}).then(() => {
   console.log("Connected MongoDB Successfully");
   app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
