@@ -55,10 +55,7 @@ function Login() {
       }
 
       toast.success("Login successful. Opening dashboard...", { position: "bottom-right" });
-
-      setTimeout(() => {
-        window.location.href = DASHBOARD_URL;
-      }, 900);
+      window.location.replace(DASHBOARD_URL);
     } catch (err) {
       const message = err.response?.data?.message || "Login failed. Please try again.";
       toast.error(message, { position: "bottom-left" });

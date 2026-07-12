@@ -4,7 +4,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./SignupPage.css";
-import { API_URL, DASHBOARD_URL } from "../../config";
+import { API_URL, DASHBOARD_URL } from "../../config.js";
 
 function Signup() {
   const [formData, setFormData] = useState({
@@ -60,10 +60,8 @@ function Signup() {
       }
 
       toast.success("Signup successful. Opening dashboard...", { position: "bottom-right" });
-
-      setTimeout(() => {
-        window.location.href = DASHBOARD_URL;
-      }, 900);
+      console.log(DASHBOARD_URL);
+      window.location.href = DASHBOARD_URL;
     } catch (err) {
       const message =
         err.response?.data?.message ||

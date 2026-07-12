@@ -5,7 +5,9 @@ import { API_URL, LANDING_URL } from "../config";
 const AuthContext = createContext({
   user: null,
   isCheckingAuth: true,
-  logout: () => {},
+  logout: () => {
+    
+  },
 });
 
 export const AuthProvider = ({ children }) => {

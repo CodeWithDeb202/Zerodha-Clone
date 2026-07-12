@@ -2,12 +2,18 @@ const bcrypt = require("bcryptjs");
 const UserModel = require("../model/UserModel");
 const { createSecretToken } = require("../utils/SecretToken");
 
+// Cookie must be readable by dashboard on another dev port.
+// For localhost dev (different ports), avoid forcing cookie domain.
+// Also, browsers require: sameSite="none" -> secure must be true.
+const isProd = process.env.NODE_ENV === "production";
 const cookieOptions = {
   httpOnly: true,
-  sameSite: "lax",
-  secure: process.env.NODE_ENV === "production",
+  path: "/",
   maxAge: 3 * 24 * 60 * 60 * 1000,
+  sameSite: isProd ? "none" : "lax",
+  secure: isProd,
 };
+
 
 const Signup = async (req, res) => {
   try {

@@ -3,4 +3,4 @@ const configuredLandingUrl = import.meta.env.VITE_LANDING_URL;
 
 export const API_URL = configuredApiUrl || "http://localhost:5000";
 
-export const LANDING_URL = configuredLandingUrl || "http://localhost:5173";
+export const LANDING_URL = configuredLandingUrl || "http://localhost:5175";
