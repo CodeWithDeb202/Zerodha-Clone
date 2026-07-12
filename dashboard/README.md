@@ -102,7 +102,7 @@ http://localhost:5000
 The public landing and authentication frontend should run at:
 
 ```text
-http://localhost:5173
+http://localhost:5175
 ```
 
 The user must sign up or log in through the frontend before opening the protected dashboard.
@@ -121,10 +121,10 @@ npm install
 Create `dashboard/.env` if you want to override the address used when redirecting users to the public frontend:
 
 ```env
-VITE_LANDING_URL=http://localhost:5173
+VITE_LANDING_URL=http://localhost:5175
 ```
 
-The dashboard uses `http://localhost:5173` when this variable is not provided.
+The dashboard uses `http://localhost:5175` when this variable is not provided.
 
 Do not commit `.env` files containing private values.
 

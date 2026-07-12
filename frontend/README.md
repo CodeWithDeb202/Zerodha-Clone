@@ -129,10 +129,10 @@ npm run dev
 Open:
 
 ```text
-http://localhost:5173
+http://localhost:5175
 ```
 
-The Vite configuration uses port `5173` with `strictPort` enabled. The application will report an error instead of silently selecting another port when `5173` is already occupied.
+The Vite configuration uses port `5175` with `strictPort` enabled. The application will report an error instead of silently selecting another port when `5175` is already occupied.
 
 ## Available Scripts
 

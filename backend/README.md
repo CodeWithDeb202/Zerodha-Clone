@@ -79,7 +79,7 @@ Install the following:
 The public frontend normally runs at:
 
 ```text
-http://localhost:5173
+http://localhost:5175
 ```
 
 The trading dashboard normally runs at:

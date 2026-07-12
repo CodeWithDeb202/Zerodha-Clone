@@ -12,7 +12,7 @@ The application is divided into three parts:
 - **Dashboard** - the protected trading interface for orders, holdings, positions, funds, and user information
 - **Backend** - the Express API, authentication logic, MongoDB models, and trading data endpoints
 
-The frontend runs on port `5173`, the dashboard on port `5174`, and the backend on port `5000`.
+The frontend runs on port `5175`, the dashboard on port `5174`, and the backend on port `5000`.
 
 ## Features
 
@@ -181,7 +181,7 @@ npm run dev
 The landing website will run at:
 
 ```text
-http://localhost:5173
+http://localhost:5175
 ```
 
 The frontend optionally supports this environment variable in `frontend/.env`:
@@ -209,7 +209,7 @@ http://localhost:5174
 The dashboard optionally supports this environment variable in `dashboard/.env`:
 
 ```env
-VITE_LANDING_URL=http://localhost:5173
+VITE_LANDING_URL=http://localhost:5175
 ```
 
 Keep all three services running while using the complete application.
