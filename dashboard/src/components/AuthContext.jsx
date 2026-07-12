@@ -1,14 +1,8 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_URL, LANDING_URL } from "../config";
 
-const AuthContext = createContext({
-  user: null,
-  isCheckingAuth: true,
-  logout: () => {
-    
-  },
-});
+import { AuthContext } from "../hooks/useAuth";
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -58,4 +52,3 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-export const useAuth = () => useContext(AuthContext);

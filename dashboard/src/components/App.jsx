@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "../hooks/useAuth";
 import { API_URL } from "../config";
 
 function App() {

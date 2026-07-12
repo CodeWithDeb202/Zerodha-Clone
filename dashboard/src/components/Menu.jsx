@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import {Link} from "react-router-dom";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "../hooks/useAuth";
 
 function Menu(){
     const { user, logout } = useAuth();

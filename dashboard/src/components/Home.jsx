@@ -1,6 +1,6 @@
 import Topbar from "./Topbar";
 import Dashboard from "./Dashboard";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "../hooks/useAuth";
 
 function Home(){
     const { isCheckingAuth } = useAuth();
