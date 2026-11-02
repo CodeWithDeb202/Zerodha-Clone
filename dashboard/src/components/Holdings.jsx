@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { Verticalgraph } from './Verticalgraph';
+import Verticalgraph from './Verticalgraph';
 import { API_URL } from '../config';
 
 

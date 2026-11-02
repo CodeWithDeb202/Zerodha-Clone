@@ -8,6 +8,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import verticalGraphOptions from './verticalGraphOptions';
 
 ChartJS.register(
   CategoryScale,
@@ -18,19 +19,8 @@ ChartJS.register(
   Legend
 );
 
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top',
-    },
-    title: {
-      display: true,
-      text: 'Holdings',
-    },
-  },
-};
-
-export function Verticalgraph({ data }) {
-  return <Bar options={options} data={data} />;
+function Verticalgraph({ data }) {
+  return <Bar options={verticalGraphOptions} data={data} />;
 }
+
+export default Verticalgraph;

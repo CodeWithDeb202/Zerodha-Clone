@@ -15,10 +15,12 @@ import SupportPage from './landing_page/support/SupportPage';
 import NotFoundPage from './landing_page/NotFoundPage';
 import Navbar from './landing_page/Navbar';
 import Footer from './landing_page/Footer';
+import PageTitle from './PageTitle';
 
 createRoot(document.getElementById('root')).render(
 
   <BrowserRouter>
+    <PageTitle />
     <Navbar />
 
     <Routes>
