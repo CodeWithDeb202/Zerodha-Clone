@@ -162,6 +162,6 @@ mongoose.connect(MONGO_URL, {
 
 app.get("/test", (req, res) => {
   res.json({ 
-    message: "UPDATE: Test route is working!" 
+    message: "FINAL UPDATE: Test route is working!" 
   });
 });
